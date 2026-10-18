@@ -3,7 +3,7 @@
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
-pattern='`Task`|\bTask (call|calls|tool|spawn|spawns|subagent|subagents)\b|AskQuestion|generalPurpose|readonly: (true|false)|environment: "(cloud|local)"|cloud_base_branch|file_attachments|run_in_background|is_background|\.mdc\b|~/\.cursor|\.cursor/|\bgrok-|claude-(opus|sonnet|haiku|fable)-[0-9]|setup-pstack|pstack-models|inherit-parent|docs/harness|SendToUser|update_state|api2\.cursor\.sh|cursor-team-kit|github\.com/cursor/plugins|\bCursor\b'
+pattern='`Task`|\bTask (call|calls|tool|spawn|spawns|subagent|subagents|per)\b|\b(a|an|one|each|every|the|new|fresh) Task\b|\btodolist\b|AskQuestion|generalPurpose|readonly: (true|false)|environment: "(cloud|local)"|cloud_base_branch|file_attachments|run_in_background|is_background|\.mdc\b|~/\.cursor|\.cursor/|\bgrok-|claude-(opus|sonnet|haiku|fable)-[0-9]|setup-pstack|pstack-models|inherit-parent|docs/harness|SendToUser|update_state|api2\.cursor\.sh|cursor-team-kit|github\.com/cursor/plugins|\bCursor\b'
 
 # The author's biography names her employer.
 allowed='millions of lines of code at Meta, Netflix, and Cursor\.|ship high quality code at Cursor\.'
@@ -11,9 +11,9 @@ allowed='millions of lines of code at Meta, Netflix, and Cursor\.|ship high qual
 paths=(pstack/skills pstack/agents pstack/docs pstack/README.md)
 hits=$(
   {
-    grep -rnE "$pattern" "${paths[@]}"
+    grep -rnE --exclude-dir=node_modules "$pattern" "${paths[@]}"
     # Prose only: the scripts use "cursor" for pagination and for Bugbot's GitHub login.
-    grep -rnwi --include='*.md' cursor "${paths[@]}"
+    grep -rnwi --exclude-dir=node_modules --include='*.md' cursor "${paths[@]}"
   } | grep -vE "$allowed" || true
 )
 
