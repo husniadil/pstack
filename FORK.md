@@ -67,13 +67,14 @@ The `Agent` tool takes `model` values `opus`, `sonnet`, `haiku`, and `fable`, an
 | --- | --- |
 | "In Claude Code, read the Claude Code adapter ..." line | Remove it. If the skill runs another pstack skill, put this line in its place: "To run another pstack skill, read `${CLAUDE_PLUGIN_ROOT}/skills/<name>/SKILL.md` and follow it." |
 | Run another pstack skill (`/name` or "the **name** skill") | Read `${CLAUDE_PLUGIN_ROOT}/skills/<name>/SKILL.md` and follow it. pstack skills set `disable-model-invocation`, so the `Skill` tool refuses them. |
-| A slash command the user types | `/pstack:<name>` |
+| A slash command the user is told to type, in prose or a code block | `/pstack:<name>`. A bare `/name` that only names the skill stays as upstream wrote it. |
 | `../<name>/SKILL.md` from a skill, or an absolute path to pass to a subagent | `${CLAUDE_PLUGIN_ROOT}/skills/<name>/SKILL.md`. Claude Code substitutes the absolute path when it loads the skill or agent. |
 | `.cursor/skills/`, `~/.cursor/skills/` | `.claude/skills/`, `~/.claude/skills/` |
 | `~/.cursor/plugins/`, `.cursor-plugin/plugin.json` | `${CLAUDE_PLUGIN_ROOT}`, `.claude-plugin/plugin.json` |
 | `.cursor/rules/*.mdc`, an always-applied rule | `CLAUDE.md` |
 | `https://github.com/cursor/plugins/blob/main/pstack/<path>` | A relative link in `docs/` and `README.md`, `${CLAUDE_PLUGIN_ROOT}/<path>` in skills and agents |
 | Transcripts in `~/.cursor/projects/<slug>/agent-transcripts/` | `~/.claude/projects/<slug>/<session>.jsonl`. The slug is the workspace path with each `/` and `.` changed to `-`. The newest `.jsonl` there is the current session, and `<session>/subagents/` holds its subagent transcripts. |
+| The agent's store, "path in the system prompt" | `~/.claude/pstack/`. Claude Code gives an agent no store of its own. |
 | A Cursor chat, Cursor restart, Cursor window | A Claude Code session, restart, terminal |
 | Cursor Plan mode | Claude Code plan mode |
 
@@ -87,7 +88,8 @@ The `Agent` tool takes `model` values `opus`, `sonnet`, `haiku`, and `fable`, an
 | A built-in PR tool, Origin | `gh` |
 | `deslop` from `cursor-team-kit` | `/simplify` |
 | `control-cli`, `control-ui` from `cursor-team-kit` | `/run` to launch and drive the app, and Claude in Chrome for a browser UI when the session has it |
-| Cursor's built-in `create-skill` or `babysit` skill | Remove the mention. pstack's own playbooks cover both. |
+| Cursor's built-in `create-skill` or `babysit` skill | Remove the mention, or point at pstack's `playbooks/authoring-a-skill.md` or `playbooks/babysit.md`. |
+| Grok Bot | A Claude Code routine with an API trigger |
 
 ## Syncing upstream
 
