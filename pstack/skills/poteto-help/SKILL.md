@@ -25,6 +25,7 @@ Infer the need from the message and the conversation. A named situation, such as
 Check the state that changes the answer, and mention it only when it does:
 
 - No `verify-*` skill or other app harness in the project means agents have no scripted way to drive the app. Mention `/create-verification-skill` when the question is about proving a change works.
+- No formal verification skill in the project means no property is checked past what tests reach. Mention `/create-formal-verification-skill` when the question is about a race, an invariant, or another case tests rarely hit.
 
 ## Get set up
 
@@ -35,7 +36,9 @@ Installing changes nothing until the user invokes a skill. No pstack skill loads
 
 If cost is the worry, say where the tokens go and how to spend fewer. pstack spends extra tokens on subagents and review panels. Opus roles use `model: "opus"` with an `effort`. The other roles omit `model` and run on the session's model, which saves tokens when the session runs on a cheaper model. Save `/poteto-mode` for work that needs rigor.
 
-This copy of pstack is built for Claude Code. Its skills use the Agent Skills format, so other tools can read them. But most workflow skills, including `/poteto-mode`, `/how`, `/why`, and `/teach`, spawn Claude Code subagents with per-role models, and `/loop` is a Claude Code feature, so those parts may not work there.
+This copy of pstack is built for Claude Code. Each command takes a `pstack:` prefix, such as `/pstack:poteto-mode`.
+
+Other tools can read the skills, because they use the Agent Skills format. But most workflow skills, including `/poteto-mode`, `/how`, `/why`, and `/teach`, spawn Claude Code subagents with per-role models, and `/loop` is a Claude Code feature, so those parts may not work there.
 
 ## Start a task with `/poteto-mode`
 

@@ -21,13 +21,15 @@ The defaults run at `xhigh` reasoning. For the hardest work the agent raises the
 
 Every `/swarm` worker also runs on your session model unless a race names a model for each arm.
 
-## Generate a verification skill, or don't
+## Generate verification skills, or don't
 
 pstack works best with a way to prove app behavior in your project, either a `verify-*` skill or an existing harness. If you have neither, generate one with [`/create-verification-skill`](../../skills/create-verification-skill/SKILL.md).
 
 It writes `.claude/skills/verify-<app>/`, a project-local skill that teaches agents to drive your app the way a user does. It proves the skill works once before handing it over. You can run `/pstack:create-verification-skill` any time. [Verify and ship](./06-verify-and-ship.md#create-a-project-verification-skill) covers it in depth.
 
 If you're new to pstack, run it. An agent that can check its own work keeps going until the check passes. An agent that can't hands every result back to you to check by hand. Of everything in this guide, the verification skill pays off the most.
+
+Then you can generate a formal verification skill with [`/create-formal-verification-skill`](../../skills/create-formal-verification-skill/SKILL.md), unless the project already has one. Tests check the cases someone thought to write. A formal verification skill checks one key property of your code, such as "a job never runs twice at once", in every case within a stated scope. Run it when your code has concurrency, retries, a state machine, or a parser, where a bug is costly and tests rarely reach the case that breaks. Otherwise skip it, and run it later if that changes. [Verify and ship](./06-verify-and-ship.md#prove-a-property-with-a-formal-verification-skill) covers it.
 
 ## Keep the cost in check
 
