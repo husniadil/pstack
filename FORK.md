@@ -44,6 +44,7 @@ Apply these to every file under `pstack/skills`, `pstack/agents`, `pstack/docs`,
 | `environment: "local"`, `run_in_background: true` | Drop. Claude Code runs subagents in the background by default. |
 | `cloud_base_branch: <b>` | Tell the worker to check out `<b>` first. |
 | `resume` an agent | `SendMessage` with the agent's ID or name. Explore and Plan agents cannot be resumed, so spawn a fresh agent with the earlier result in its brief. |
+| Fork a worker to reuse its built state (its checkout, uncommitted changes, or a running process) | Spawn a fresh worker in that worker's worktree. Put the worktree path in the brief and omit `isolation`, so it works on the same checkout and uncommitted changes. The `Agent` tool forks only the calling agent, so a fork would carry the coordinator's context and checkout. |
 | `file_attachments` | List the paths in the brief. |
 | `is_background: true` (agent frontmatter) | `background: true` |
 
@@ -75,6 +76,7 @@ The `Agent` tool takes `model` values `opus`, `sonnet`, `haiku`, and `fable`, an
 | `https://github.com/cursor/plugins/blob/main/pstack/<path>` | A relative link in `docs/` and `README.md`, `${CLAUDE_PLUGIN_ROOT}/<path>` in skills and agents |
 | Transcripts in `~/.cursor/projects/<slug>/agent-transcripts/` | `~/.claude/projects/<slug>/<session>.jsonl`. The slug is the workspace path with each `/` and `.` changed to `-`. The newest `.jsonl` there is the current session, and `<session>/subagents/` holds its subagent transcripts. |
 | The agent's store, "path in the system prompt" | `~/.claude/pstack/`. Claude Code gives an agent no store of its own. |
+| The Project tracker (`notes.md`) and the Project store | `~/.claude/pstack/orchestrate/<project-slug>/notes.md` for the tracker, and the rest of that directory for the store. `<project-slug>` is the program's name in kebab-case. Both outlast a restart, which `TodoWrite` does not. |
 | A Cursor chat, Cursor restart, Cursor window | A Claude Code session, restart, terminal |
 | Cursor Plan mode | Claude Code plan mode |
 
