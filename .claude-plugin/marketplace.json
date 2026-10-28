@@ -1,5 +1,6 @@
 {
   "name": "pstack",
+  "description": "A fork of cursor/plugins that keeps only pstack and rewrites it for Claude Code.",
   "owner": {
     "name": "Husni Adil Makmur"
   },
