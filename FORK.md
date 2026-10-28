@@ -69,7 +69,8 @@ The `Agent` tool takes `model` values `opus`, `sonnet`, `haiku`, and `fable`, an
 | "In Claude Code, read the Claude Code adapter ..." line | Remove it. If the skill runs another pstack skill, put this line in its place: "To run another pstack skill, read `${CLAUDE_PLUGIN_ROOT}/skills/<name>/SKILL.md` and follow it." |
 | Run another pstack skill (`/name` or "the **name** skill") | Read `${CLAUDE_PLUGIN_ROOT}/skills/<name>/SKILL.md` and follow it. pstack skills set `disable-model-invocation`, so the `Skill` tool refuses them. |
 | A slash command the user is told to type, in prose or a code block | `/pstack:<name>`. A bare `/name` that only names the skill stays as upstream wrote it. |
-| `../<name>/SKILL.md` from a skill, or an absolute path to pass to a subagent | `${CLAUDE_PLUGIN_ROOT}/skills/<name>/SKILL.md`. Claude Code substitutes the absolute path when it loads the skill or agent. |
+| A relative link to another skill, such as `[...](../<name>/SKILL.md)` | Keep it as upstream wrote it. Claude Code gives a skill its base directory, so the link resolves from there. When the sentence tells the agent to run that skill, the row on running another pstack skill applies instead. |
+| An absolute path to a skill, to pass to a subagent | `${CLAUDE_PLUGIN_ROOT}/skills/<name>/SKILL.md`. Claude Code substitutes the absolute path when it loads the skill or agent. |
 | `.cursor/skills/`, `~/.cursor/skills/` | `.claude/skills/`, `~/.claude/skills/` |
 | `~/.cursor/plugins/`, `.cursor-plugin/plugin.json` | `${CLAUDE_PLUGIN_ROOT}`, `.claude-plugin/plugin.json` |
 | `.cursor/rules/*.mdc`, an always-applied rule | `CLAUDE.md` |
